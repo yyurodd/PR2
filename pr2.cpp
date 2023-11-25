@@ -139,7 +139,7 @@ void timeForQuickSort()
 	cout << "\n\n";
 
 	result = duration_cast<nanoseconds>(end - start);
-	cout << "Время быстрой сортировки: " << result.count() << " нс (" << (result.count() / 1000000.0) << " мс)" << "\n\n";
+	cout << "Время быстрой сортировки: " << (result.count() / 1000000.0) << " мс" << "\n\n";
 
 }
 
@@ -166,35 +166,34 @@ void searchMinMax() {
 	nanoseconds result;
 
 	const int N = 100;
-	int unsortedArray[N]{};
-	fillArray(unsortedArray, N);
-	int mn = unsortedArray[0];
-	int mx = unsortedArray[0];
+	int Array[N]{};
+	fillArray(Array, N);
+	int mn = Array[0];
+	int mx = Array[0];
 
 	start = steady_clock::now();
 	for (int i = 1; i < N; i++) {
-		mn = min(mn, unsortedArray[i]);
-		mx = max(mx, unsortedArray[i]);
+		mn = min(mn, Array[i]);
+		mx = max(mx, Array[i]);
 	}
 	end = steady_clock::now();
 
 	cout << "Минимальный элемент: " << mn << "\t" << "Максимальный элемент: " << mx << "\n";
 
 	result = duration_cast<nanoseconds>(end - start);
-	cout << "Время нахождения минимального и максимального элементов в неотсортированном массиве: "
-		<< result.count() << " нс (" << (result.count() / 1000000.0) << " мс)" << "\n";
+	cout << "Время нахождения минимального и максимального элементов в неотсортированном массиве: " << (result.count() / 1000000.0) << " мс" << "\n";
 
-	int sortedArray[N]{};
-	fillArray(sortedArray, N);
-	bubbleSort(sortedArray, N);
 
+	quickSort(Array, N - 1, 0);
+	for (int i = 0; i < N; i++) {
+		cout << Array[i] << " ";
+	}
 	start = steady_clock::now();
-	mn = sortedArray[0];
-	mx = sortedArray[N - 1];
+	mn = Array[0];
+	mx = Array[N - 1];
 	end = steady_clock::now();
 	result = duration_cast<nanoseconds>(end - start);
-	cout << "Время нахождения минимального и максимального элементов в отсортированном массиве: "
-		<< result.count() << " нс (" << (result.count() / 1000000.0) << " мс)" << "\n\n";
+	cout << "Время нахождения минимального и максимального элементов в отсортированном массиве: " << (result.count() / 1000000.0) << " мс" << "\n\n";
 }
 
 
@@ -206,7 +205,7 @@ void averageValue()
 	const int N = 100;
 	int unsortedArray[N]{};
 	fillArray(unsortedArray, N);
-
+	cout << "Неотсортированный массив: \n";
 	for (int i = 0; i < N; i++) {
 		cout << unsortedArray[i] << " ";
 	}
@@ -230,7 +229,7 @@ void averageValue()
 	end = steady_clock::now();
 
 	result = duration_cast<nanoseconds>(end - start);
-	cout << "\n" << "Время подсчёта элементов равных среднему значению в неотсортированном массиве: " << result.count() << " нс (" << (result.count() / 1000000.0) << " мс)\n";
+	cout << "\n" << "Время подсчёта элементов равных среднему значению в неотсортированном массиве: " << (result.count() / 1000000.0) << " мс\n";
 
 	quickSort(unsortedArray, N - 1, 0);
 	cout << "\n" << "Отсортированный массив: " << "\n";
@@ -247,12 +246,12 @@ void averageValue()
 			cout << i << " ";
 			count++;
 		}
-	
+
 	}
 	end = steady_clock::now();
 
 	result = duration_cast<nanoseconds>(end - start);
-	cout << "\n" << "Время подсчёта элементов равных среднему значению в отсортированном массиве: " << result.count() << " нс (" << (result.count() / 1000000.0) << " мс)\n";
+	cout << "\n" << "Время подсчёта элементов равных среднему значению в отсортированном массиве: " << (result.count() / 1000000.0) << " мс\n";
 	cout << "Количество: " << count << "\n";
 
 }
@@ -269,14 +268,14 @@ void lessThanA(int value)
 		cout << i << ": " << array[i] << "    ";
 	}
 	cout << "\n\n";
-	
+
 	int i = binarySearch(array, value, 0, N - 1), elem = value - 1;
-	
+
 	while (i == -1 && elem >= -99) {
 		int i = binarySearch(array, --elem, 0, N - 1);
 	}
 
-	for (i; i < N; i++) {
+	for (i = 0; i < N; i++) {
 		if (array[i] >= value) {
 			break;
 		}
@@ -305,7 +304,7 @@ void moreThanB(int value) {
 
 	int i = binarySearch(array, value, 0, N - 1), elem = value + 1;
 	while (i == -1 && elem <= 99) {
-		i = binarySearch(array, ++elem,  0, N - 1);
+		i = binarySearch(array, ++elem, 0, N - 1);
 	}
 
 	for (i; i >= 0; i--) {
@@ -351,7 +350,7 @@ void compareTime(int x) {
 	cout << "Есть ли в массиве число: " << (isThere ? "есть" : "нету") << "\n";
 
 	result = duration_cast<nanoseconds>(end - start);
-	cout << "Время бинарного поиска: " << result.count() << " нс (" << (result.count() / 1000000.0) << " мс)" << "\n";
+	cout << "Время бинарного поиска: " << (result.count() / 1000000.0) << " мс" << "\n";
 
 	int i = 0;
 	start = steady_clock::now();
@@ -364,7 +363,7 @@ void compareTime(int x) {
 	end = steady_clock::now();
 
 	result = duration_cast<nanoseconds>(end - start);
-	cout << "Время перебором: " << result.count() << " нс (" << (result.count() / 1000000.0) << " мс)" << "\n";
+	cout << "Время перебором: " << (result.count() / 1000000.0) << " мс" << "\n";
 
 }
 
@@ -403,7 +402,7 @@ void replace(int i, int j)
 	cout << "\n";
 
 	result = duration_cast<nanoseconds>(end - start);
-	cout << "\n" << "Время перестановки элементов: " << result.count() << " нс (" << (result.count() / 1000000.0) << " мс)\n";
+	cout << "\n" << "Время перестановки элементов: " << (result.count() / 1000000.0) << " мс\n";
 
 }
 
@@ -416,10 +415,10 @@ void idz(int array[], int x) {
 
 	int countOdd = 0, countEven = 0;
 	for (int i = 0; i < N; i++) {
-		if (i % 2 != 0 && array[i] % 2 != 0) {
+		if (i % 2 != 0 && abs(array[i]) % 2 != 0) {
 			++countOdd;
 		}
-		else if (i % 2 == 0 && array[i] % 2 == 0) {
+		else if (i % 2 == 0 && abs(array[i]) % 2 == 0) {
 			++countEven;
 		}
 	}
@@ -442,13 +441,13 @@ void idz(int array[], int x) {
 	cout << "\n";
 
 	for (int i = 0; i < N; i++) {
-		if (array[i] % 2 == 0) {
+		if (abs(array[i]) % 2 == 0) {
 			array[i] = array[i] - x;
 		}
 	}
 
 	for (int i = 0; i < N; i++) {
-		if (array[i] % 2 != 0) {
+		if (abs(array[i]) % 2 != 0) {
 			int k = array[i];
 			array[i] = array[i] * (rand() % 10);
 			if (array[i] == 0) {
@@ -465,10 +464,10 @@ void idz(int array[], int x) {
 
 	int countOddM = 0, countEvenM = 0;
 	for (int i = 0; i < N; i++) {
-		if (i % 2 != 0 && array[i] % 2 != 0) {
+		if (i % 2 != 0 && abs(array[i]) % 2 != 0) {
 			++countOddM;
 		}
-		else if (i % 2 == 0 && array[i] % 2 == 0) {
+		else if (i % 2 == 0 && abs(array[i]) % 2 == 0) {
 			++countEvenM;
 		}
 	}
@@ -566,12 +565,10 @@ int main() {
 		if (task == '0') {
 			break;
 		}
-		else if ('1' <= task <= '1') {
+		else {
 			launch(task);
 		}
-		else {
-			cout << "Введён неверный номер задания.\n";
-		}
+		
 	}
 	return 0;
 }
