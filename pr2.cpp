@@ -413,7 +413,34 @@ void replace(int i, int j)
 void idz(int array[], int x) {
 	srand(time(0));
 	const int N = 100;
-	
+
+	int countOdd = 0, countEven = 0;
+	for (int i = 0; i < N; i++) {
+		if (i % 2 != 0 && array[i] % 2 != 0) {
+			++countOdd;
+		}
+		else if (i % 2 == 0 && array[i] % 2 == 0) {
+			++countEven;
+		}
+	}
+	cout << "\nКоличество нечетных элементов имеющих нечетные значения в изначальном: " << countOdd << "\n";
+	cout << "Количество четных элементов имеющих четные значения в изначальном массиве: " << countEven << "\n\n";
+
+	int cou = 0;
+	int d = 0;
+	for (int j = 1; j < 10; j++) {
+		for (int i = 0; i < N; i++) {
+			if (abs(array[i]) % j == 0) {
+				++cou;
+			}
+		}
+		++d;
+		cout << "Количество элементов нацело делящихся на " << d << " в изначальном массиве: " << cou << "\n";
+		cou = 0;
+
+	}
+	cout << "\n";
+
 	for (int i = 0; i < N; i++) {
 		if (array[i] % 2 == 0) {
 			array[i] = array[i] - x;
@@ -436,31 +463,32 @@ void idz(int array[], int x) {
 	}
 	cout << "\n\n";
 
-	int countOdd = 0, countEven = 0;
+	int countOddM = 0, countEvenM = 0;
 	for (int i = 0; i < N; i++) {
 		if (i % 2 != 0 && array[i] % 2 != 0) {
-			++countOdd;
+			++countOddM;
 		}
 		else if (i % 2 == 0 && array[i] % 2 == 0) {
-			++countEven;
+			++countEvenM;
 		}
 	}
-	cout << "Количество нечетных элементов имеющих нечетные значения: " << countOdd << "\n";
-	cout << "Количество четных элементов имеющих четные значения: " << countEven << "\n";
+	cout << "\nКоличество нечетных элементов имеющих нечетные значения в измененном массиве: " << countOddM << "\n";
+	cout << "Количество четных элементов имеющих четные значения в измененном массиве: " << countEvenM << "\n\n";
 
-	int cou = 0;
-	int d = 0;
+	int couM = 0;
+	int dM = 0;
 	for (int j = 1; j < 10; j++) {
 		for (int i = 0; i < N; i++) {
 			if (abs(array[i]) % j == 0) {
-				++cou;
+				++couM;
 			}
 		}
-		++d;
-		cout << "Количество элементов нацело делящихся на " << d << ": " << cou << "\n";
-		cou = 0;
+		++dM;
+		cout << "Количество элементов нацело делящихся на " << dM << " в измененном массиве: " << couM << "\n";
+		couM = 0;
 
 	}
+	cout << "\n";
 }
 
 //idz end
@@ -513,7 +541,7 @@ void launch(char task) {
 		for (int i = 0; i < N; i++) {
 			cout << array[i] << " ";
 		}
-		cout << "Введите значение на которое будут уменьшены все четные элементы: ";
+		cout << "\nВведите значение на которое будут уменьшены все четные элементы: ";
 		cin >> x;
 		idz(array, x);
 	}
