@@ -529,7 +529,12 @@ void launch(char task) {
 		cout << "Введите индексы заменяемых элементов(i, j): ";
 		cin >> i >> j;
 		cout << "\n";
-		replace(i, j);
+		if ((i > 99 || i < 0) || (j > 99 || j < 0)) {
+			cout << "Неверный ввод.\n";
+		}
+		else {
+			replace(i, j);
+		}
 		break;
 	case '8':
 		const int N = 100;
